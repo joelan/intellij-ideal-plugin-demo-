@@ -1,4 +1,4 @@
-package com.lrq.hhh;
+package com.lrq.hhh.windows;
 
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.wm.ToolWindow;
@@ -9,7 +9,7 @@ import com.intellij.ui.content.ContentFactory;
 import javax.swing.*;
 
 /**
- * Created by Administrator on 2016/11/12.
+ * toolwindow窗口体
  */
 public class mywindowexample implements ToolWindowFactory {
     private JTextField textField1;

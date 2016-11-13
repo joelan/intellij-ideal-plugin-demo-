@@ -1,6 +1,6 @@
 <idea-plugin version="2">
   <id>com.yourcompany.unique.plugin.id</id>
-  <name>Plugin display name here</name>
+  <name>MyGeneratorPlugin</name>
   <version>1.0</version>
   <vendor email="support@yourcompany.com" url="http://www.yourcompany.com">YourCompany</vendor>
 
@@ -38,10 +38,14 @@
 
   <actions>
     <!-- Add your actions here -->
-    <action id="hhh.showdialog" class="com.lrq.hhh.shoadilaogaction" text="showdailog" description="this my thest">
+
+
+  <!--  <action id="hhh.showdialog" class="com.lrq.hhh.actions.shoadilaogaction" text="showdailog" description="this my thest">
       <add-to-group group-id="EditMenu" anchor="first"/>
-    </action>
-    <action id="lrqhhh.showingerateraction" class="com.lrq.hhh.gerateraction" text="geratetest"
+    </action>-->
+
+
+    <action id="lrqhhh.showingerateraction" class="com.lrq.hhh.actions.gerateraction" text="geratetest"
             description="this  is tes of pop ger">
       <add-to-group group-id="GenerateGroup" anchor="last"/>
     </action>
@@ -55,7 +59,7 @@
   </depends>
 
 
-  <extensions defaultExtensionNs="com.intellij">
+<!--  <extensions defaultExtensionNs="com.intellij">
     <toolWindow id="My Sample Tool Window" anchor="right" factoryClass="com.lrq.hhh.mywindowexample"/>
-  </extensions>
+  </extensions>-->
 </idea-plugin>
