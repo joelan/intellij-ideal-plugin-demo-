@@ -5,14 +5,14 @@ http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started.html
 
 ##2.总结
 ###1. psifile当前选中文件
-···java
+```java
  Project project = anActionEvent.getData(PlatformDataKeys.PROJECT); 
  Editor editor = anActionEvent.getData(PlatformDataKeys.EDITOR); 
  PsiFile currentEditorFile = PsiUtilBase.getPsiFileInEditor(editor, project);
 ```
 
 ###2.PsiClass 获取当前选中文件类对象，psiclass能获取对象的方法和属性
-···java
+```java
 private PsiClass getPsiClassFromContext(AnActionEvent e) {
     PsiFile psiFile = e.getData(LangDataKeys.PSI_FILE);
     Editor editor = e.getData(PlatformDataKeys.EDITOR);
@@ -28,7 +28,7 @@ private PsiClass getPsiClassFromContext(AnActionEvent e) {
 
 ###3.生成一个java类文件
 
-···java
+```java
 /**
 * 生成一个java文件
 * @param anActionEvent
@@ -45,7 +45,7 @@ JavaDirectoryService.getInstance().createClass(psiFilecurrent.getContainingDirec
 
 ###4.生成一个文件
 
-···java
+```java
 /**
 * 生产文件
 * @param anActionEvent
