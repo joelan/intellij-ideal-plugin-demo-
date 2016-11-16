@@ -3,13 +3,16 @@
 ##1.官方教程
 http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started.html
 
-1. psifile当前选中文件
+##2.总结
+###1. psifile当前选中文件
+···java
  Project project = anActionEvent.getData(PlatformDataKeys.PROJECT); 
  Editor editor = anActionEvent.getData(PlatformDataKeys.EDITOR); 
  PsiFile currentEditorFile = PsiUtilBase.getPsiFileInEditor(editor, project);
+```
 
-
-2.PsiClass 获取当前选中文件类对象，psiclass能获取对象的方法和属性
+###2.PsiClass 获取当前选中文件类对象，psiclass能获取对象的方法和属性
+···java
 private PsiClass getPsiClassFromContext(AnActionEvent e) {
     PsiFile psiFile = e.getData(LangDataKeys.PSI_FILE);
     Editor editor = e.getData(PlatformDataKeys.EDITOR);
@@ -20,10 +23,12 @@ private PsiClass getPsiClassFromContext(AnActionEvent e) {
     PsiElement element = psiFile.findElementAt(offset);
     return PsiTreeUtil.getParentOfType(element, PsiClass.class);
 }
+```
 
 
+###3.生成一个java类文件
 
-3.生成一个java类文件
+···java
 /**
 * 生成一个java文件
 * @param anActionEvent
@@ -35,10 +40,12 @@ PsiFile psiFilecurrent = anActionEvent.getData(LangDataKeys.PSI_FILE);
 JavaDirectoryService.getInstance().createClass(psiFilecurrent.getContainingDirectory(), "MYjava");
 }
 
+```
 
 
+###4.生成一个文件
 
-4.生成一个文件
+···java
 /**
 * 生产文件
 * @param anActionEvent
@@ -53,7 +60,7 @@ PsiFile psiFilecurrent = anActionEvent.getData(LangDataKeys.PSI_FILE);
 psiFilecurrent.getContainingDirectory().add(psijavaFile);
 psiFilecurrent.getContainingDirectory().add(psixmlFile);
 }
-
+```
 
 
 
