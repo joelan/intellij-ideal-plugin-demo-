@@ -1,4 +1,4 @@
-# itellij ideal 插件开发教程
+# Intellij ideal 插件开发教程
 
 ##1.官方教程
 http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started.html
