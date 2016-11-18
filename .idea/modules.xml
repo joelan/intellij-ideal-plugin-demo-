@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/MyIntellijPlugin.iml" filepath="$PROJECT_DIR$/MyIntellijPlugin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/GenerateparamsPlugin.iml" filepath="$PROJECT_DIR$/GenerateparamsPlugin.iml" />
     </modules>
   </component>
 </project>

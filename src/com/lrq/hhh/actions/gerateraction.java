@@ -2,6 +2,7 @@ package com.lrq.hhh.actions;
 
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
+import com.lrq.hhh.windows.GenerateParamWindow;
 import com.lrq.hhh.windows.createmethodWindow;
 
 /**
@@ -16,9 +17,10 @@ public class gerateraction extends AnAction {
 
        // ActiontoDo(anActionEvent);
 
-        createmethodWindow windowdialog=new createmethodWindow(anActionEvent);
+        GenerateParamWindow windowdialog=new GenerateParamWindow(anActionEvent);
 
-        windowdialog.setSize(600, 400);
+        windowdialog.setSize(800, 400);
+        windowdialog.setAlwaysOnTop(false);
         windowdialog.setLocationRelativeTo(null);
         windowdialog.setVisible(true);
 

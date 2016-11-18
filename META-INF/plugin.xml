@@ -1,18 +1,15 @@
 <idea-plugin version="2">
-  <id>com.yourcompany.unique.plugin.id</id>
-  <name>MyGeneratorPlugin</name>
-  <version>1.0</version>
-  <vendor email="support@yourcompany.com" url="http://www.yourcompany.com">YourCompany</vendor>
+  <id>com.lrq.crazyjoe.plugin.generateparams</id>
+  <name>GenerateparamsPlugin</name>
+  <version>2.0</version>
+  <vendor email="544351900@qq.com" url="http://www.crazyjoe.cn">CrazyJoe</vendor>
+
 
   <description><![CDATA[
-      Enter short description for your plugin here.<br>
-      <em>most HTML tags may be used</em>
+      根据David给的markdown格式生成提交参数
     ]]></description>
 
-  <change-notes><![CDATA[
-      Add change notes here.<br>
-      <em>most HTML tags may be used</em>
-    ]]>
+  <change-notes>
   </change-notes>
 
   <!-- please see http://confluence.jetbrains.com/display/IDEADEV/Build+Number+Ranges for description -->
@@ -45,9 +42,10 @@
     </action>-->
 
 
-    <action id="lrqhhh.showingerateraction" class="com.lrq.hhh.actions.gerateraction" text="geratetest"
+    <action id="lrqhhh.showingerateraction" class="com.lrq.hhh.actions.gerateraction" text="GenaatePostParams"
             description="this  is tes of pop ger">
-      <add-to-group group-id="GenerateGroup" anchor="last"/>
+      <add-to-group group-id="GenerateGroup" anchor="last"  />
+      <keyboard-shortcut keymap="$default" first-keystroke="alt i"/>
     </action>
   </actions>
   <depends optional="true">

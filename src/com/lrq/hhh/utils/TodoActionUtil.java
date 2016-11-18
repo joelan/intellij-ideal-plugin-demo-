@@ -3,6 +3,7 @@ package com.lrq.hhh.utils;
 import com.intellij.ide.highlighter.JavaFileType;
 import com.intellij.ide.highlighter.XmlFileType;
 import com.intellij.lang.Language;
+import com.intellij.notification.EventLog;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.LangDataKeys;
 import com.intellij.openapi.actionSystem.PlatformDataKeys;
@@ -20,12 +21,20 @@ import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.psi.util.PsiUtil;
 import com.intellij.psi.util.PsiUtilBase;
 import com.jetbrains.cidr.execution.debugger.backend.lldb.auto_generated.Model;
+import com.lrq.hhh.entity.FieldEntity;
+import com.lrq.hhh.interfacepackge.Operation;
+import com.lrq.hhh.windows.GenerateParamWindow;
+import org.apache.http.util.TextUtils;
+
+import javax.swing.*;
+import java.util.List;
 
 /**
  * Action操作类
  */
 public class TodoActionUtil {
-
+    JFrame window;
+    Operation operation;
     /**
      * 操作
      * @param anActionEvent 动作事件context
@@ -84,6 +93,128 @@ public class TodoActionUtil {
 
 
     }
+
+    /**
+     * 操作
+     * @param anActionEvent 动作事件context
+     * @param paramstring 方法名
+     */
+    public void ActiontoDo2(final AnActionEvent anActionEvent, final String paramstring) {
+
+        final Project project = anActionEvent.getData(PlatformDataKeys.PROJECT);
+        Editor editor = anActionEvent.getData(PlatformDataKeys.EDITOR);
+
+
+     //   this.operation=operation;
+        final PsiClass psiClass = getPsiClassFromContext(anActionEvent);
+
+
+        final List<FieldEntity>  fieldslist=ParseUtils.parseString(paramstring);
+
+
+
+        WriteCommandAction.runWriteCommandAction(project, new Runnable() {
+            @Override
+            public void run() {
+
+
+                try {
+                    if(fieldslist==null||fieldslist.size()==0)
+                    {
+                       /* tipslabel.setText("参数格式不对，解析错误！");
+                        tipslabel.setVisible(true);*/
+                      // TodoActionUtil.this. operation.setlabletextvisbile(true, "参数格式不对，解析错误！");
+                        return;
+                    }
+
+
+                    generateFieldAndSetterAndGetter(project, fieldslist, psiClass);
+
+                  //  TodoActionUtil.this.window.setVisible(false);
+
+                  //  TodoActionUtil.this.operation.setvisiblewindow(false);
+                }
+                catch (Exception e)
+                {
+
+                   /* tipslabel.setText("创建异常！！"+e.getMessage());
+                    tipslabel.setVisible(true);*/
+                  /*  TodoActionUtil.this. operation.setlabletextvisbile(true, "参数格式不对，解析错误！");
+                    TodoActionUtil.this.operation.setvisiblewindow(false);*/
+
+                 //  e.printStackTrace();
+
+
+                }
+
+
+            }
+        });
+
+
+
+    }
+
+    private void generateFieldAndSetterAndGetter(Project project, List<FieldEntity> fieldslist, PsiClass psiClass) {
+        PsiElementFactory elementFactory=  JavaPsiFacade.getElementFactory(project);
+        for(int i=0;i<fieldslist.size();i++)
+        {
+            generateField(elementFactory,psiClass,fieldslist.get(i));
+        }
+
+        for(int i=0;i<fieldslist.size();i++)
+        {
+            createGetAndSetMethod(elementFactory, psiClass, fieldslist.get(i));
+        }
+    }
+
+    /**
+     * 生成属性名
+     * @param factory
+     * @param cls
+     * @param Field
+     */
+    protected void generateField(PsiElementFactory factory, PsiClass cls, FieldEntity  Field) {
+
+            StringBuilder fieldSb = new StringBuilder();
+
+                //fieldSb.append("\n");
+
+                fieldSb.append("private  ").append(Field.getFielType()).append(" ").append(Field.getFielName()).append(" ; ");
+
+            cls.add(factory.createFieldFromText(fieldSb.toString(), cls));
+
+
+    }
+
+    protected void createGetAndSetMethod(PsiElementFactory factory, PsiClass cls, FieldEntity field) {
+            String fieldName = field.getFielName();
+            String typeStr = field.getFielType();
+                String methodx = "public ".concat(typeStr).concat(
+                        "   get").concat(
+                        captureName(fieldName)).concat(
+                        "() {   return ").concat(
+                        field.getFielName()).concat(" ;} ");
+                cls.add(factory.createMethodFromText(methodx, cls));
+
+
+        String arg = fieldName;
+
+            String method = "public void  set".concat(captureName(fieldName)).concat("( ").concat(typeStr).concat(" ").concat(arg).concat(") {   ");
+                method = method.concat("this.").concat(field.getFielName()).concat(" = ").concat(arg).concat(";} ");
+
+            cls.add(factory.createMethodFromText(method, cls));
+
+    }
+
+    public static String captureName(String text) {
+
+        if (text.length() > 0) {
+            text = text.substring(0, 1).toUpperCase() + text.substring(1);
+        }
+        return text;
+    }
+
 
     /**
      * 生成一个java文件
