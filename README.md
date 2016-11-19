@@ -113,8 +113,8 @@ psiFilecurrent.getContainingDirectory().add(psixmlFile);
 
 
 ##四.备注信息
-1.###FieldEntity类
-```java
+###1.FieldEntity类
+````java
 public class FieldEntity {
 
     String fielType;
@@ -136,7 +136,7 @@ public class FieldEntity {
         this.fielName = fielName;
     }
 }
-```
+````
 
 
 
