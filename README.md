@@ -2,6 +2,8 @@
 
 ##一.官方教程
 http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started.html
+
+
 ##二.例子
 根据下面的格式生成module类的属性和getter和setter
 ```
@@ -83,8 +85,10 @@ psiFilecurrent.getContainingDirectory().add(psixmlFile);
 
     }
 ```
+
+
 ###6.生成getter和settter
-```java
+````java
  protected void createGetAndSetMethod(PsiElementFactory factory, PsiClass cls, FieldEntity field) {
             String fieldName = field.getFielName();
             String typeStr = field.getFielType();
@@ -104,7 +108,10 @@ psiFilecurrent.getContainingDirectory().add(psixmlFile);
             cls.add(factory.createMethodFromText(method, cls));
 
     }
-    ```
+    
+````
+
+
 ##四.备注信息
 1.###FieldEntity类
 ```java
@@ -129,9 +136,6 @@ public class FieldEntity {
         this.fielName = fielName;
     }
 }
-
-
-
 ```
 
 
