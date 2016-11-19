@@ -33,7 +33,7 @@ import java.util.List;
  * Action操作类
  */
 public class TodoActionUtil {
-    JFrame window;
+
     Operation operation;
     /**
      * 操作
@@ -94,19 +94,21 @@ public class TodoActionUtil {
 
     }
 
+
     /**
-     * 操作
-     * @param anActionEvent 动作事件context
-     * @param paramstring 方法名
+     * @param project
+     * @param psiClass
+     * @param paramstring
      */
-    public void ActiontoDo2(final AnActionEvent anActionEvent, final String paramstring) {
-
-        final Project project = anActionEvent.getData(PlatformDataKeys.PROJECT);
-        Editor editor = anActionEvent.getData(PlatformDataKeys.EDITOR);
+    public void ActiontoDo2(final Project project, final PsiClass psiClass, final String paramstring,Operation operation) {
 
 
-     //   this.operation=operation;
-        final PsiClass psiClass = getPsiClassFromContext(anActionEvent);
+
+       // Editor editor = anActionEvent.getData(PlatformDataKeys.EDITOR);
+
+
+        this.operation=operation;
+
 
 
         final List<FieldEntity>  fieldslist=ParseUtils.parseString(paramstring);
@@ -123,7 +125,7 @@ public class TodoActionUtil {
                     {
                        /* tipslabel.setText("参数格式不对，解析错误！");
                         tipslabel.setVisible(true);*/
-                      // TodoActionUtil.this. operation.setlabletextvisbile(true, "参数格式不对，解析错误！");
+                       TodoActionUtil.this. operation.setlabletextvisbile(true, "参数格式不对，解析错误！");
                         return;
                     }
 
@@ -132,15 +134,15 @@ public class TodoActionUtil {
 
                   //  TodoActionUtil.this.window.setVisible(false);
 
-                  //  TodoActionUtil.this.operation.setvisiblewindow(false);
+                    TodoActionUtil.this.operation.setvisiblewindow(false);
                 }
                 catch (Exception e)
                 {
 
                    /* tipslabel.setText("创建异常！！"+e.getMessage());
                     tipslabel.setVisible(true);*/
-                  /*  TodoActionUtil.this. operation.setlabletextvisbile(true, "参数格式不对，解析错误！");
-                    TodoActionUtil.this.operation.setvisiblewindow(false);*/
+                    TodoActionUtil.this. operation.setlabletextvisbile(true, "参数格式不对，解析错误！");
+                    TodoActionUtil.this.operation.setvisiblewindow(false);
 
                  //  e.printStackTrace();
 

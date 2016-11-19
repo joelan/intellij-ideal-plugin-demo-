@@ -1,6 +1,14 @@
 package com.lrq.hhh.windows;
 
 import com.intellij.openapi.actionSystem.AnActionEvent;
+import com.intellij.openapi.actionSystem.LangDataKeys;
+import com.intellij.openapi.actionSystem.PlatformDataKeys;
+import com.intellij.openapi.editor.Editor;
+import com.intellij.openapi.project.Project;
+import com.intellij.psi.PsiClass;
+import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiFile;
+import com.intellij.psi.util.PsiTreeUtil;
 import com.lrq.hhh.entity.FieldEntity;
 import com.lrq.hhh.interfacepackge.Operation;
 import com.lrq.hhh.utils.ParseUtils;
@@ -24,6 +32,8 @@ public class GenerateParamWindow  extends JFrame implements Operation {
     private JButton sure;
     private JLabel tipslabel;
     private JTextPane textep;
+    private Project project;
+    private PsiClass psiClass;
 
     public GenerateParamWindow(AnActionEvent anActionEvent)
     {
@@ -43,34 +53,43 @@ public class GenerateParamWindow  extends JFrame implements Operation {
 
     public  void init()
     {
+
+
+        project = anActionEvent.getData(PlatformDataKeys.PROJECT);
+      psiClass = getPsiClassFromContext(anActionEvent);
+
         sure.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
 
-                TodoActionUtil todoActionUtil = new TodoActionUtil();
+                try {
+
+                    TodoActionUtil todoActionUtil = new TodoActionUtil();
 
 
+                    if (!"".equals(textep.getText().trim().toString())) {
 
-                if (!"".equals(textep.getText().trim().toString()))
-                {
+                        List<FieldEntity> fieldslist = ParseUtils.parseString(textep.getText().trim().toString());
 
-                    List<FieldEntity> fieldslist= ParseUtils.parseString(textep.getText().trim().toString());
-
-                    if(fieldslist==null||fieldslist.size()==0)
-                    {
+                        if (fieldslist == null || fieldslist.size() == 0) {
                     /*    tipslabel.setVisible(true);
                         tipslabel.setText("参数格式不对，解析错误！");*/
-                        GenerateParamWindow.this.setlabletextvisbile(true,"参数格式不对，解析错误！");
-                    return;
-                    }
+                            GenerateParamWindow.this.setlabletextvisbile(true, "参数格式不对，解析错误！");
+                            return;
+                        }
 
-                    todoActionUtil.ActiontoDo2(anActionEvent, textep.getText().trim().toString());
-                    GenerateParamWindow.this.setVisible(false);
+                        todoActionUtil.ActiontoDo2(project,psiClass, textep.getText().trim().toString(),GenerateParamWindow.this);
+                       // dispose();
+                    } else {
+                        GenerateParamWindow.this.setlabletextvisbile(true, "参数不能为空");
+                    }
+                }catch (Throwable ex)
+                {
+
                 }
-                else {
-                    GenerateParamWindow.this.setlabletextvisbile(true, "参数不能为空");
-                }
+
+
 
             }
         });
@@ -78,7 +97,7 @@ public class GenerateParamWindow  extends JFrame implements Operation {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                GenerateParamWindow.this.setVisible(false);
+                dispose();
             }
         });
     }
@@ -90,6 +109,25 @@ public class GenerateParamWindow  extends JFrame implements Operation {
          dispose();
 
 
+    }
+    /**
+     * 获取当前焦点下的类
+     * @param e
+     * @return
+     */
+    private PsiClass getPsiClassFromContext(AnActionEvent e) {
+
+        PsiFile psiFile = e.getData(LangDataKeys.PSI_FILE);
+        Editor editor = e.getData(PlatformDataKeys.EDITOR);
+
+        if (psiFile == null || editor == null) {
+            return null;
+        }
+
+        int offset = editor.getCaretModel().getOffset();
+        PsiElement element = psiFile.findElementAt(offset);
+
+        return PsiTreeUtil.getParentOfType(element, PsiClass.class);
     }
 
     @Override
