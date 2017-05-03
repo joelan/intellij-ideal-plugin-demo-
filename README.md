@@ -1,10 +1,12 @@
 # Intellij ideal 插件开发教程
 
-##一.官方教程
+## 一.官方教程
+
 http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started.html
 
 
-##二.例子
+## 二.例子
+
 根据下面的格式生成module类的属性和getter和setter
 ```
 | uid |   true |     string | 用户1 被添加的用户ID  |
@@ -12,15 +14,15 @@ http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started.html
 | lastname |   true |     string | 姓  |
 ```
 
-##三.总结
-###1. psifile当前选中文件
+## 三.总结
+### 1. psifile当前选中文件
 ```java
  Project project = anActionEvent.getData(PlatformDataKeys.PROJECT); 
  Editor editor = anActionEvent.getData(PlatformDataKeys.EDITOR); 
  PsiFile currentEditorFile = PsiUtilBase.getPsiFileInEditor(editor, project);
 ```
 
-###2.PsiClass 获取当前选中文件类对象，psiclass能获取对象的方法和属性
+### 2.PsiClass 获取当前选中文件类对象，psiclass能获取对象的方法和属性
 ```java
 private PsiClass getPsiClassFromContext(AnActionEvent e) {
     PsiFile psiFile = e.getData(LangDataKeys.PSI_FILE);
@@ -35,7 +37,7 @@ private PsiClass getPsiClassFromContext(AnActionEvent e) {
 ```
 
 
-###3.生成一个java类文件
+### 3.生成一个java类文件
 
 ```java
 /**
@@ -52,7 +54,7 @@ JavaDirectoryService.getInstance().createClass(psiFilecurrent.getContainingDirec
 ```
 
 
-###4.生成一个文件
+### 4.生成一个文件
 
 ```java
 /**
@@ -70,7 +72,7 @@ psiFilecurrent.getContainingDirectory().add(psijavaFile);
 psiFilecurrent.getContainingDirectory().add(psixmlFile);
 }
 ```
-###5.生成成员变量
+### 5.生成成员变量
 ```java
   protected void generateField(PsiElementFactory factory, PsiClass cls, FieldEntity  Field) {
 
@@ -87,7 +89,7 @@ psiFilecurrent.getContainingDirectory().add(psixmlFile);
 ```
 
 
-###6.生成getter和settter
+### 6.生成getter和settter
 ````java
  protected void createGetAndSetMethod(PsiElementFactory factory, PsiClass cls, FieldEntity field) {
             String fieldName = field.getFielName();
@@ -112,8 +114,8 @@ psiFilecurrent.getContainingDirectory().add(psixmlFile);
 ````
 
 
-##四.备注信息
-###1.FieldEntity类
+## 四.备注信息
+### 1.FieldEntity类
 ````java
 public class FieldEntity {
 
